@@ -86,6 +86,9 @@ public class MemoryConfiguration implements Serializable {
     /** This name is assigned to default MemoryPolicy if no user-defined default MemPlc is specified */
     public static final String DFLT_MEM_PLC_DEFAULT_NAME = "default";
 
+    /** Default value for metrics for default memory policy */
+    private static final boolean DFLT_MEMORY_POLICY_METRICS_ENABLED = false;
+
     /** Size of a memory chunk reserved for system cache initially. */
     private long sysCacheInitSize = DFLT_SYS_CACHE_INIT_SIZE;
 
@@ -103,6 +106,9 @@ public class MemoryConfiguration implements Serializable {
 
     /** Size of memory (in bytes) to use for default MemoryPolicy. */
     private long dfltMemPlcSize = DFLT_MEMORY_POLICY_MAX_SIZE;
+
+    /** Attribute that shows if disable memory metrics for the default memory policy by default or not */
+    private boolean dfltMemoryPolicyMetricsEnabled = DFLT_MEMORY_POLICY_METRICS_ENABLED;
 
     /** Memory policies. */
     private MemoryPolicyConfiguration[] memPlcs;
@@ -301,5 +307,25 @@ public class MemoryConfiguration implements Serializable {
         this.dfltMemPlcName = dfltMemPlcName;
 
         return this;
+    }
+
+    /**
+     * Sets metrics displaying attribute for default memory policy
+     *
+     * @param metricsEnabled Value of default memory policy metrics overridden by user.
+     */
+    public MemoryConfiguration setDefaultMemoryPolicyMetricsEnabled(boolean metricsEnabled) {
+        this.dfltMemoryPolicyMetricsEnabled = metricsEnabled;
+
+        return this;
+    }
+
+    /**
+     * Gets metrics displaying attribute for default memory policy
+     *
+     * @return A value of attribute which says, should we show metrics for default memory region or not
+     */
+    public boolean isDefaultMemoryPolicyMetricsEnabled() {
+        return this.dfltMemoryPolicyMetricsEnabled;
     }
 }

@@ -1363,7 +1363,8 @@ public class PlatformConfigurationUtils {
                 .setSystemCacheMaxSize(in.readLong())
                 .setPageSize(in.readInt())
                 .setConcurrencyLevel(in.readInt())
-                .setDefaultMemoryPolicyName(in.readString());
+                .setDefaultMemoryPolicyName(in.readString())
+                .setDefaultMemoryPolicyMetricsEnabled(in.readBoolean());
 
         int cnt = in.readInt();
 
@@ -1412,6 +1413,7 @@ public class PlatformConfigurationUtils {
         w.writeInt(cfg.getPageSize());
         w.writeInt(cfg.getConcurrencyLevel());
         w.writeString(cfg.getDefaultMemoryPolicyName());
+        w.writeBoolean(cfg.isDefaultMemoryPolicyMetricsEnabled());
 
         MemoryPolicyConfiguration[] plcs = cfg.getMemoryPolicies();
 

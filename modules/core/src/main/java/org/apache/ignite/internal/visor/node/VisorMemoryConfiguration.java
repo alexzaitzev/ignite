@@ -57,6 +57,9 @@ public class VisorMemoryConfiguration extends VisorDataTransferObject {
     /** Memory policies. */
     private List<VisorMemoryPolicyConfiguration> memPlcs;
 
+    /** Metrics enabled flag. */
+    private boolean metricsEnabled;
+
     /**
      * Default constructor.
      */
@@ -78,6 +81,7 @@ public class VisorMemoryConfiguration extends VisorDataTransferObject {
         concLvl = memCfg.getConcurrencyLevel();
         dfltMemPlcName = memCfg.getDefaultMemoryPolicyName();
         dfltMemPlcSize = memCfg.getDefaultMemoryPolicySize();
+        metricsEnabled = memCfg.isDefaultMemoryPolicyMetricsEnabled();
 
         MemoryPolicyConfiguration[] plcs = memCfg.getMemoryPolicies();
 
@@ -132,6 +136,13 @@ public class VisorMemoryConfiguration extends VisorDataTransferObject {
     }
 
     /**
+     * @return Metrics enabled flag.
+     */
+    public boolean isMetricsEnabled() {
+        return metricsEnabled;
+    }
+
+    /**
      * @return Collection of MemoryPolicyConfiguration objects.
      */
     public List<VisorMemoryPolicyConfiguration> getMemoryPolicies() {
@@ -147,6 +158,7 @@ public class VisorMemoryConfiguration extends VisorDataTransferObject {
         U.writeString(out, dfltMemPlcName);
         out.writeLong(dfltMemPlcSize);
         U.writeCollection(out, memPlcs);
+        out.writeBoolean(metricsEnabled);
     }
 
     /** {@inheritDoc} */
@@ -158,6 +170,7 @@ public class VisorMemoryConfiguration extends VisorDataTransferObject {
         dfltMemPlcName = U.readString(in);
         dfltMemPlcSize = in.readLong();
         memPlcs = U.readList(in);
+        metricsEnabled = in.readBoolean();
     }
 
     /** {@inheritDoc} */
